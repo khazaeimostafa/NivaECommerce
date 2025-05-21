@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OrderService.Infrastructure.DependencyInjection
 {
-    public static class RedisServiceRegistration
+    public static class RedisServiceRegistration 
     {
         public static IServiceCollection AddRedisCaching(this IServiceCollection services, IConfiguration configuration)
         {
