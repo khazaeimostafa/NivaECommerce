@@ -1,8 +1,14 @@
+using OrderService.Infrastructure.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+// Add Dependencies
+builder.Services.AddRedisCaching(builder.Configuration);
+
+
 
 var app = builder.Build();
 
