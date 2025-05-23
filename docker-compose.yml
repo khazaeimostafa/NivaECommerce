@@ -1,24 +1,21 @@
+version: '3.9'  # ✅ توجه: استفاده از نسخه جدید و رسمی
+
 services:
+
   orderservice:
     build:
-      context: . 
-      dockerfile:  src/Services/OrderService/Dockerfile
+      context: .
+      dockerfile: src/Services/OrderService/OrderService.API/Dockerfile
     ports:
-      - "5002:80"
+      - "5000:8080"  # می‌تونی 5000 رو به هر پورتی که خواستی تغییر بدی
     depends_on:
       - kafka
-    networks:
-      - niva-network
-
-  zookeeper:
-    image: confluentinc/cp-zookeeper:7.6.0
     environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-    ports:
-      - "2181:2181"
+      - ASPNETCORE_ENVIRONMENT=Development
     networks:
       - niva-network
 
+  # ✅ Kafka
   kafka:
     image: confluentinc/cp-kafka:7.6.0
     ports:
@@ -30,6 +27,17 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
+    networks:
+      - niva-network
+
+  # ✅ Zookeeper (پیش‌نیاز Kafka)
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
     networks:
       - niva-network
 

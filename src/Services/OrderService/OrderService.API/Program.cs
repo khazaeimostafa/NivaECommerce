@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "OrderService API V1");
-        c.RoutePrefix = string.Empty; // اگر می‌خواهی Swagger UI در ریشه نمایش داده شود
+        // c.RoutePrefix = string.Empty; // اگر می‌خواهی Swagger UI در ریشه نمایش داده شود
     });
 }
 
