@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrderService.Application.Common.Interfaces;
+using OrderService.Infrastructure.Shared.Configuration.RedisConfigs;
 using OrderService.Infrastructure.Shared.RedisService;
 using StackExchange.Redis;
 using System;
@@ -19,6 +20,8 @@ namespace OrderService.Infrastructure.DependencyInjection
             var redisConfig = configuration.GetConnectionString("Redis") ?? "localhost:6379";
             services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(redisConfig));
             services.AddScoped<ICacheService, RedisCacheService>();
+            services.AddScoped<IHasheService, HasheService>();
+            services.Configure<RedisCacheOptions>(configuration.GetSection("RedisCacheOptions"));
             return services;
         }
 
